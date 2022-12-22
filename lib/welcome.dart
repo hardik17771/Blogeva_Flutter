@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:blog_app_project/signup_page.dart';
 class WelcomePage extends StatefulWidget {
   const WelcomePage({Key? key}) : super(key: key);
 
@@ -26,7 +27,7 @@ class _WelcomePageState extends State<WelcomePage> {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(80.0),
+          padding:  EdgeInsets.all(80.0),
           child: Column(
             children:  [
 
@@ -62,38 +63,64 @@ class _WelcomePageState extends State<WelcomePage> {
                     letterSpacing: 2,
                   ),
                 ),
-                   const SizedBox(
+                    SizedBox(
                      height: 40,
                    ),
-                   boxContainer("images/png-clipart-google-logo-google-search-advertising-google-company-text-thumbnail.png", "Sign up with Google", ),
+                   boxContainer("images/png-clipart-google-logo-google-search-advertising-google-company-text-thumbnail.png", "Sign up with Google", null),
                    const SizedBox(
                      height: 20,
                    ),
-                   boxContainer("images/download (1).png", "Sign up with Facebook", ),
+                   boxContainer("images/download (1).png", "Sign up with Facebook", null),
                    const SizedBox(
                      height: 20,
                    ),
                    boxContainer(
                      "images/561127.png",
                      "Sign up with Email",
-
+                     onEmailClick(),
                    ),
                    const SizedBox(
                      height: 15,
                    ),
                    Row(
                      mainAxisAlignment: MainAxisAlignment.center,
-                     children: const [
-                       Text(
+                     children:   [
+                       const Text(
                          "Already have an account?",
                          style: TextStyle(
                            color: Colors.black38,
-                           fontSize: 17,
+                           fontSize: 15,
                          ),
                        ),
-                       SizedBox(
+                       const SizedBox(
                          width: 10,
                        ),
+
+                       ElevatedButton(
+                         onPressed: () {
+
+                           // Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SignUpPage()));
+
+                         },
+
+                         style:
+                         ElevatedButton.styleFrom(
+                           side: const BorderSide(width:1, color:Colors.transparent),
+                           backgroundColor:   Colors.transparent,
+
+                           // shape: RoundedRectangleBorder(
+                           //   borderRadius: BorderRadius.circular(200),
+                           // ),
+                         ),
+                         child: const Text('Log In',
+
+                           style: TextStyle(
+                             color: Colors.black38,
+                             fontSize: 10,
+                           ),),
+
+                       ),
+
                        ],
 
                        ),
@@ -107,9 +134,22 @@ class _WelcomePageState extends State<WelcomePage> {
         ),
     );
   }
-  Widget boxContainer(String path, String text)
+  onEmailClick(){
+    Future.delayed(Duration.zero, () {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => SignUpPage()),
+              (route) => false);
+    });
+}
+  Widget boxContainer(String path, String text, onClick)
   {
-    return Container(
+
+        return GestureDetector(
+         child: InkWell(
+        onTap: onClick,
+        child: Container(
+
+
    height: 60,
         width: MediaQuery.of(context).size.width-140,
       child: Card(
@@ -127,11 +167,14 @@ class _WelcomePageState extends State<WelcomePage> {
             text,
              style: TextStyle(fontSize: 16, color: Colors.black87),
            ),
+
          ],
         ),
         ),
       ),
-    );
+    ),
+         )
+        );
   }
 
 
